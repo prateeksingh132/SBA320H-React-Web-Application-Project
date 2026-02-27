@@ -3,7 +3,7 @@ import { CartContext } from '../context/CartContext';
 
 // logic: this page reads the global cart state and calculates the total price
 
-// BUG - in my cart if i buy the same item twice, it didnt group them together. 
+// BUG - in my cart if i buy the same item twice, it didnt group them together. -- FIXED
 // FUTUREWORK: check if its state management issue
 
 const CartPage = () => {
@@ -13,12 +13,18 @@ const CartPage = () => {
     // console.log('TESTING: current cart state: ', state.cart);
     ////////////
 
-    // logic: using reduce method to add up all the prices in the array
-    const totalCost = state.cart.reduce((total, item) => total + item.price, 0);
+    // logic: updating the reduce method to multiply the price by the quantity
+    const totalCost = state.cart.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0);
 
     const handleRemove = (item) => {
         // dispatching the remove action to my usereducer
         dispatch({ type: 'REMOVE_FROM_CART', payload: item });
+    };
+
+    const handleQuantityChange = (item, newQuantity) => {
+        // idea is to let the user lower the quantity below 1 using the minus button
+        if (newQuantity < 1) return;
+        dispatch({ type: 'CHANGE_QUANTITY', payload: { id: item.id, quantity: newQuantity } });
     };
 
     return (
@@ -42,6 +48,25 @@ const CartPage = () => {
                             <div style={{ flexGrow: 1 }}>
                                 <h4 style={{ margin: '0 0 10px 0' }}>{item.title}</h4>
                                 <p className="price" style={{ margin: 0 }}>${item.price}</p>
+                            </div>
+
+                            {/* logic: added a mini flexbox container for the + and - quantity buttons */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginRight: '30px' }}>
+                                <button
+                                    className="btn"
+                                    style={{ padding: '5px 10px', backgroundColor: '#003366' }}
+                                    onClick={() => handleQuantityChange(item, (item.quantity || 1) - 1)}
+                                >
+                                    -
+                                </button>
+                                <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>{item.quantity || 1}</span>
+                                <button
+                                    className="btn"
+                                    style={{ padding: '5px 10px', backgroundColor: '#003366' }}
+                                    onClick={() => handleQuantityChange(item, (item.quantity || 1) + 1)}
+                                >
+                                    +
+                                </button>
                             </div>
 
                             <button
