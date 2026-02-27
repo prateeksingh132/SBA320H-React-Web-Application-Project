@@ -10,6 +10,8 @@ import tablet from '../images/tablet.jpg';
 
 // logic: i am gonna buils a automatic image carousel 
 // goal: make sure the image transition is smoother
+// https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+// https://stackoverflow.com/questions/53981593/react-hooks-and-setinterval
 const HeroCarousel = () => {
     // array of images for the carousel background
     const images = [

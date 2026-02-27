@@ -3,6 +3,8 @@ import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 
 // logic: this is the shop page where i fetch and map out all the products
+// https://stackoverflow.com/questions/58579426/in-useeffect-whats-the-difference-between-providing-no-dependency-array-and-an
+
 const ShopPage = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);

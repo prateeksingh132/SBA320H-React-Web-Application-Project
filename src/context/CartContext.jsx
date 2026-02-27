@@ -4,6 +4,8 @@ import { cartReducer, initialState } from '../reducers/cartReducer';
 export const CartContext = createContext();
 
 // logic: function to check if we have a saved cart in local storage before using the default empty one
+// https://kentcdodds.com/blog/how-to-optimize-your-context-value
+
 const getInitialState = () => {
     const savedCart = localStorage.getItem('gadgetshack_cart');
     if (savedCart) {

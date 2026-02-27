@@ -4,6 +4,8 @@ export const initialState = {
 };
 
 // logic: handling actions for the cart using a reducer like we did in class
+// https://react.dev/learn/updating-arrays-in-state
+
 export const cartReducer = (state, action) => {
     ////////////TESTING
     // console.log('TESTING: cart action payload: ', action.payload);
