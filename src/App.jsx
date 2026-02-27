@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import CartPage from './pages/CartPage';
+import ProductDetailsPage from './pages/ProductDetailsPage';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/shop/:id" element={<ProductDetailsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cart" element={<CartPage />} />
 
