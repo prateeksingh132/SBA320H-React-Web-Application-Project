@@ -39,3 +39,7 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 };
+
+
+////// BUG: cookie do not persists on reload
+// FUTUREWORK: check this later, user is supposed to be logged in when refresh is done, but it seems user is logged out..find out why later..
