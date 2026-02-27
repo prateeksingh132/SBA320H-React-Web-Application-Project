@@ -6,6 +6,9 @@ export const initialState = {
 // logic: handling actions for the cart using a reducer like we did in class
 // https://react.dev/learn/updating-arrays-in-state
 
+// BUG - in my cart if i buy the same item twice, it didnt group them together.
+// FUTUREWORK: check if its state management issue
+
 export const cartReducer = (state, action) => {
     ////////////TESTING
     // console.log('TESTING: cart action payload: ', action.payload);

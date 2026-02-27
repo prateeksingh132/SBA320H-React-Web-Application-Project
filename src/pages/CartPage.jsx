@@ -2,6 +2,10 @@ import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
 // logic: this page reads the global cart state and calculates the total price
+
+// BUG - in my cart if i buy the same item twice, it didnt group them together. 
+// FUTUREWORK: check if its state management issue
+
 const CartPage = () => {
     const { state, dispatch } = useContext(CartContext);
 
