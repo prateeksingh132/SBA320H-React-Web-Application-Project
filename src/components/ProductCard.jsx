@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CartContext } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 
@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 const ProductCard = ({ product }) => {
     // logic: pulling the dispatch function from our global context
     const { dispatch } = useContext(CartContext);
+    // logic: local state to track if this specific item was just added
+    const [isAdded, setIsAdded] = useState(false);
 
     const handleAddToCart = () => {
         ////////////TESTING
@@ -13,6 +15,15 @@ const ProductCard = ({ product }) => {
         ////////////
 
         dispatch({ type: 'ADD_TO_CART', payload: product });
+
+        // idea is that this is gonna trigger the visual feedback and then i want to reset the button
+        setIsAdded(true);
+
+        // logic: reset the button back to normal after 2 seconds
+        setTimeout(() => {
+            setIsAdded(false);
+        }, 2000);
+
     };
 
     return (
@@ -24,7 +35,18 @@ const ProductCard = ({ product }) => {
             </Link>
             <p className="price">${product.price}</p>
             <p>{product.description.substring(0, 50)}...</p>
-            <button className="btn" onClick={handleAddToCart}>Add to Cart</button>
+
+            {/* here i m gonna render the button text and color based on the isadded state */}
+            <button
+                className="btn"
+                onClick={handleAddToCart}
+                style={{
+                    backgroundColor: isAdded ? '#28a745' : '#ff6600', // green if added, orange if default
+                    transition: 'background-color 0.3s ease'
+                }}
+            >
+                {isAdded ? '✓ Added to Cart' : 'Add to Cart'}
+            </button>
         </div>
     );
 };
