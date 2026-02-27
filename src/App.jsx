@@ -6,6 +6,7 @@ import ShopPage from './pages/ShopPage';
 import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoutes from './components/ProtectedRoutes';
+import CartPage from './pages/CartPage';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/cart" element={<CartPage />} />
 
         {/* adding protected route wrapper for the dashboard */}
         <Route element={<ProtectedRoutes />}>
