@@ -157,3 +157,65 @@ body {
   background-color: #e65c00;
   transform: translateY(-2px);
 }
+
+
+
+/* -------------- Carousel container styling--------------  */
+.carousel_container {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  background-color: #242424;
+  overflow: hidden;
+}
+
+.carousel_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* cover ensures the image fills the space without stretching */
+  opacity: 0.6;
+  /* making the image slightly dark so the white text pops */
+}
+
+/* the text overlay that sits on top of the image */
+.carousel_overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  width: 80%;
+}
+
+.carousel_overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.carousel_overlay p {
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/*  animation to make the images fade into each other smoothly */
+.fade_animation {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.2;
+  }
+
+  /* returns to the base 0.6 opacity set in .carousel_image */
+
+  to {
+    opacity: 0.6;
+  }
+
+
+}
