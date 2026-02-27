@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ProductCard from '../components/ProductCard';
 
 // logic: this is the shop page where i fetch and map out all the products
 const ShopPage = () => {
@@ -42,15 +43,9 @@ const ShopPage = () => {
                 our catalog
             </h2>
             <div className="products_container">
-                {/* logic: loop through products array from the api and make a card for each */}
+                {/* logic: mapped the products to the new productcard component */}
                 {products.map((product) => (
-                    <div key={product.id} className="card">
-                        <img src={product.thumbnail} alt={product.title} />
-                        <h3>{product.title}</h3>
-                        <p className="price">${product.price}</p>
-                        <p>{product.description.substring(0, 50)}...</p>
-                        <button className="btn">Add to Cart</button>
-                    </div>
+                    <ProductCard key={product.id} product={product} />
                 ))}
             </div>
         </div>
