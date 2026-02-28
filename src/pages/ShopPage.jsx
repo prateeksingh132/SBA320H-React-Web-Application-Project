@@ -11,17 +11,30 @@ const ShopPage = () => {
     // logic: new state to track what the user types in the search box
     const [searchTerm, setSearchTerm] = useState('');
 
+    // logic: new state for the dropdown filter
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('all');
+
     // logic: useeffect runs once when the page loads so it fetches right away
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get('https://dummyjson.com/products');
 
+
                 ////////////TESTING
                 // console.log('TESTING: api response data: ', response.data.products);
                 ////////////
 
-                setProducts(response.data.products);
+                const fetchedProducts = response.data.products;
+
+                setProducts(fetchedProducts);
+
+                // logic: extracting all unique categories from the api data so i can build the dropdown options dynamically
+                // https://stackoverflow.com/questions/15125920/how-to-get-distinct-values-from-an-array-of-objects-in-javascript
+                const uniqueCats = [...new Set(fetchedProducts.map(item => item.category))];
+                setCategories(uniqueCats);
+
                 setLoading(false);
             } catch (error) {
                 console.error("error fetching data:", error);
@@ -32,16 +45,31 @@ const ShopPage = () => {
         fetchProducts();
     }, []); // empty dependency array so it only runs once
 
-    // logic: filtering the products array so it only keeps items that match the search string
-    // i used tolowercase() on both so the search isnt case sensitive
-    // https://stackoverflow.com/questions/73272927/in-react-js-i-want-to-be-able-to-search-username-without-distinguishing-between
-    const filteredProducts = products.filter((product) =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+
+    // const filteredProducts = products.filter((product) =>
+    //     product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    // );
 
     ////////////TESTING
     // console.log('TESTING: search term is: ', searchTerm);
     // console.log('TESTING: filtered products count: ', filteredProducts.length);
+    ////////////
+
+    // logic: filtering the products array so it only keeps items that match the search string
+    // i used tolowercase() on both so the search isnt case sensitive
+    // https://stackoverflow.com/questions/73272927/in-react-js-i-want-to-be-able-to-search-username-without-distinguishing-between
+    //  now filtering by both the text search and the category dropdown
+    const filteredProducts = products.filter((product) => {
+        const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
+
+        // i wanna make sure that it only returns true if it passes both checks
+        return matchesSearch && matchesCategory;
+    });
+
+    ////////////TESTING
+    // console.log('TESTING: selected category: ', selectedCategory);
+    // console.log('TESTING: available categories: ', categories);
     ////////////
 
 
@@ -61,7 +89,8 @@ const ShopPage = () => {
             </h2>
 
             {/* added a simple search input right above the product cards */}
-            <div style={{ textAlign: 'center', margin: '20px 0' }}>
+            {/* i m now wrapping the inputs in a flexbox so they sit next to each other nicely */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', margin: '20px 0', flexWrap: 'wrap' }}>
                 <input
                     type="text"
                     placeholder="search for a gadget..."
@@ -69,12 +98,31 @@ const ShopPage = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     style={{
                         padding: '12px',
-                        width: '350px',
+                        width: '300px',
                         borderRadius: '4px',
                         border: '2px solid #003366',
                         fontSize: '1rem'
                     }}
                 />
+
+                {/* this is the dropdown thats gonna map over the unique categories array */}
+                <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    style={{
+                        padding: '12px',
+                        borderRadius: '4px',
+                        border: '2px solid #003366',
+                        fontSize: '1rem',
+                        backgroundColor: 'white',
+                        cursor: 'pointer'
+                    }}
+                >
+                    <option value="all">All Categories</option>
+                    {categories.map((cat, index) => (
+                        <option key={index} value={cat}>{cat}</option>
+                    ))}
+                </select>
             </div>
 
             <div className="products_container">
@@ -85,7 +133,7 @@ const ShopPage = () => {
                     ))
                 ) : (
                     <p style={{ textAlign: 'center', width: '100%', fontSize: '1.2rem', color: '#cc0000' }}>
-                        no gadgets found matching "{searchTerm}".
+                        no gadgets found. try changing your filters.
                     </p>
                 )}
             </div>

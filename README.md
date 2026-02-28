@@ -7,7 +7,9 @@
 
 # References
 
-https://github.com/muratcansalihW/react-ecommerce/tree/main
+https://github.com/piyush-eon/React-shopping-cart-context-with-reducer
+
+https://www.youtube.com/watch?v=HptuMAUaNGk
 
 https://overreacted.io/making-setinterval-declarative-with-react-hooks/
 
