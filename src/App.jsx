@@ -8,6 +8,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import CartPage from './pages/CartPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -15,18 +16,23 @@ function App() {
   return (
     <div className="app_wrapper">
       <NavBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/shop/:id" element={<ProductDetailsPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/cart" element={<CartPage />} />
 
-        {/* adding protected route wrapper for the dashboard */}
-        <Route element={<ProtectedRoutes />}>
-          <Route path="/dashboard" element={<AdminDashboard />} />
-        </Route>
-      </Routes>
+      <main className="main_content_area">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/shop/:id" element={<ProductDetailsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/cart" element={<CartPage />} />
+
+          {/* adding protected route wrapper for the dashboard */}
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/dashboard" element={<AdminDashboard />} />
+          </Route>
+        </Routes>
+      </main>
+
+      <Footer />
     </div>
   );
 };
