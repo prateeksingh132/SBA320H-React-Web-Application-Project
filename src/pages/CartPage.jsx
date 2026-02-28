@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 // logic: this page reads the global cart state and calculates the total price
 
@@ -8,6 +9,9 @@ import { CartContext } from '../context/CartContext';
 
 const CartPage = () => {
     const { state, dispatch } = useContext(CartContext);
+
+    // to use it on the checkout button
+    const navigate = useNavigate();
 
     ////////////TESTING
     // console.log('TESTING: current cart state: ', state.cart);
@@ -82,7 +86,14 @@ const CartPage = () => {
                     <div style={{ textAlign: 'right', marginTop: '20px' }}>
                         {/* logic: i m gonna use tofixed(2) which makes sure the total always has two decimal places like real money */}
                         <h2>Total: ${totalCost.toFixed(2)}</h2>
-                        <button className="btn" style={{ padding: '15px 30px', fontSize: '1.1rem' }}>Proceed to Checkout</button>
+                        {/* here i m attaching the onclick handler function to run the navigate function and go to the checkout page */}
+                        <button
+                            className="btn"
+                            style={{ padding: '15px 30px', fontSize: '1.1rem' }}
+                            onClick={() => navigate('/checkout')}
+                        >
+                            Proceed to Checkout
+                        </button>
                     </div>
                 </div>
             )}
