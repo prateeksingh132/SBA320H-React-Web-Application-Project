@@ -9,6 +9,8 @@ import ProtectedRoutes from './components/ProtectedRoutes';
 import CartPage from './pages/CartPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import Footer from './components/Footer';
+import CheckoutPage from './pages/CheckoutPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
 
@@ -24,11 +26,15 @@ function App() {
           <Route path="/shop/:id" element={<ProductDetailsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
 
           {/* adding protected route wrapper for the dashboard */}
           <Route element={<ProtectedRoutes />}>
             <Route path="/dashboard" element={<AdminDashboard />} />
           </Route>
+
+          {/* logic: i am gonna use the asterisk wildcard route at the very bottom to catch any wrong urls */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
 

@@ -2,6 +2,10 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 
+
+// BUG: proceed to checkout doesnt seem to work, manually adding checkout url works
+// FUTUREWORK: fix the above mentioned bug..
+
 const CheckoutPage = () => {
     // logic: i am gonna pull dispatch to clear the cart and usenavigate to redirect the user
     const { state, dispatch } = useContext(CartContext);
