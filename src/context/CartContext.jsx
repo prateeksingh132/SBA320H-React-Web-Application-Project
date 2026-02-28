@@ -5,6 +5,8 @@ export const CartContext = createContext();
 
 // logic: function to check if we have a saved cart in local storage before using the default empty one
 // https://kentcdodds.com/blog/how-to-optimize-your-context-value
+// https://kentcdodds.com/blog/use-state-lazy-initialization-and-function-updates
+// https://stackoverflow.com/questions/64547044/persist-localstorage-with-usereducer
 
 const getInitialState = () => {
     const savedCart = localStorage.getItem('gadgetshack_cart');
