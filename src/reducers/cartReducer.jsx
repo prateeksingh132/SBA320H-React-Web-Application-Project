@@ -54,6 +54,12 @@ export const cartReducer = (state, action) => {
                         : item
                 )
             };
+        // logic: i am gonna add a clear cart action so when i checkout, the cart empties out completely.
+        case 'CLEAR_CART':
+            return {
+                ...state,
+                cart: []
+            };
         default:
             return state;
     }
